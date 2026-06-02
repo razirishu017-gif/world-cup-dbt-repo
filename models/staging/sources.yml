@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: gcp_raw_source
+    database: world-cup-data-pipeline
+    schema: world_cup_data
+    tables:
+      - name: live_odds_flat
+      - name: historical_matches_clean
+      - name: teams_2026
