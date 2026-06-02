@@ -19,9 +19,9 @@ select
     lo.match_id,
     lo.home_team,
     lo.away_team,
-    lo.home_odds,
-    lo.away_odds,
-    lo.draw_odds,
+    lo.bookmaker_name,
+    lo.odds_target_team,
+    lo.decimal_odds,
     -- Pulling in historical context for the home team
     coalesce(h.total_matches, 0) as historical_home_matches,
     coalesce(h.total_wins, 0) as historical_home_wins,
@@ -31,7 +31,7 @@ select
             else 0 
         end, 2
     ) as home_historical_win_percentage,
-    lo.extracted_at as live_updated_at
+    lo.odds_last_update as live_updated_at
 from live_odds lo
 left join historical_summary h 
     on lo.home_team = h.team_name

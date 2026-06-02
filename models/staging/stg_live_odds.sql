@@ -1,10 +1,12 @@
 select
-    -- Assuming your streaming function outputs these columns; adjust if names differ
-    id as match_id,
+    match_id,
+    sport_key,
+    commence_time,
     home_team,
     away_team,
-    home_odds,
-    away_odds,
-    draw_odds,
-    extracted_at
+    bookmaker_name,
+    market_type,
+    team_name as odds_target_team,
+    decimal_odds,
+    odds_last_update
 from {{ source('gcp_raw_source', 'live_odds_flat') }}
