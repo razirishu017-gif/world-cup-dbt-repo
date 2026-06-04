@@ -17,6 +17,7 @@ teams as (
 
 select
     lo.match_id,
+    lo.commence_time,  -- <<< THIS IS THE NEW LINE
     lo.home_team,
     lo.away_team,
     lo.bookmaker_name,
