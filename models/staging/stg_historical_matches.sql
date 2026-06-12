@@ -1,7 +1,7 @@
 select
     date as match_date,
-    home_team,
-    away_team,
+    trim(home_team) as home_team,
+    trim(away_team) as away_team,
     home_score,
     away_score,
     tournament
