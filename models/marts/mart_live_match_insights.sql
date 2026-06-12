@@ -17,13 +17,13 @@ teams as (
 
 select
     lo.match_id,
-    lo.commence_time,  -- <<< THIS IS THE NEW LINE
+    lo.commence_time,  
     lo.home_team,
     lo.away_team,
     lo.bookmaker_name,
     lo.odds_target_team,
     lo.decimal_odds,
-    -- Pulling in historical context for the home team
+    
     coalesce(h.total_matches, 0) as historical_home_matches,
     coalesce(h.total_wins, 0) as historical_home_wins,
     round(
@@ -32,7 +32,17 @@ select
             else 0 
         end, 2
     ) as home_historical_win_percentage,
+    
+    -- The new financial columns mapping from our double join
+    t_home.team_market_value as home_team_market_value,
+    t_away.team_market_value as away_team_market_value,
+    
     lo.odds_last_update as live_updated_at
+
 from live_odds lo
 left join historical_summary h 
     on lo.home_team = h.team_name
+left join teams t_home 
+    on lo.home_team = t_home.team_name
+left join teams t_away 
+    on lo.away_team = t_away.team_name
